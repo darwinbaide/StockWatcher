@@ -1,0 +1,5 @@
+ada-usd
+xrp-usd
+xlm-usd
+vet-usd
+doge-usd
