@@ -2,7 +2,7 @@ import pprint
 import yfinance as yf
 import mysql1
 
-
+""" Auxilary functions to verify existence of tables and stocks in the DB  and at yahoo api"""
 def stockExists(stockName):
     try:# this function checks if the stock is found on te finance api
         stock = yf.Ticker(stockName)
