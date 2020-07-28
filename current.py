@@ -9,9 +9,10 @@ import element_paths
 
 def getPrice(stockName,tableName, website):
     page=requests.get(website)# get site
+    print(website)
     tree = etree.HTML(page.text)
 
-    SPrice=tree.xpath(element_paths.priceX)# gets the data from website with xpath
+    SPrice=tree.xpath(element_paths.priceX)
     SVolume=tree.xpath(element_paths.volumeX)
     SClose=tree.xpath(element_paths.closeX)
     SOpen=tree.xpath(element_paths.openX)
