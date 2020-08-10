@@ -1,4 +1,4 @@
-dbhost = "96.234.116.226"
+dbhost = "127.0.0.1"
 dbuser = "darwin"
 dbpass = "Db12345678"
 dbname = "weather"
