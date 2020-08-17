@@ -5,15 +5,21 @@ import element_paths
 
 
 
+def runPeriodical(index1):
+    command="SELECT * FROM stocks.stocks where `primary` ="+str(index1)+";"
+    lines =mysql1.runCommand(command)
+    line=lines[0] # gets the first elemet as there should only be one unique Primary key
+    site1=line['site1']
+    stockName=line['name1']
+    tableName=line['tableName1']
+    
 
+    page=requests.get(site1)# get site html as download from requests
+    getPrice(page.text,stockName,tableName)# runs the stock price parser on the downloaded html
 
-def getPrice(stockName,tableName, website):
-    page=requests.get(website)# get site
-    with open("test.html","w") as rr:
-        rr.write(page.text)
-        rr.close()
-    #print("    "+website)
-    tree = etree.HTML(page.text)
+def getPrice(html4,stockName,tableName):
+    page=html4
+    tree = etree.HTML(page)
 
     SPrice=tree.xpath(element_paths.priceX)[0]
     SVolume=tree.xpath(element_paths.volumeX)[0]
@@ -74,5 +80,7 @@ def getPrice(stockName,tableName, website):
 
 
 
+if __name__ == '__main__':
+    runPeriodical(3)
+    print("ran")
 
-#getPrice("ada","ada_usd","https://finance.yahoo.com/quote/ada-usd?p=ada-usd&.tsrc=fin-srch")
