@@ -44,9 +44,13 @@ def loadMain(index1):# will take the index of the stock to run
     browser.quit()# at the end of script, kill the browser and the controller
 
 
-    def cycle():
-        print("here")
+def cycle():
+    print("here")
+    while(True):
+        print("1")
+        time.sleep(2)
 
 if __name__ == '__main__':
-    loadMain(2)
+    #loadMain(2)
+    cycle()
     print("ran")
