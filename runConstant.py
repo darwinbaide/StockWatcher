@@ -45,12 +45,14 @@ def loadMain(index1):# will take the index of the stock to run
 
 
 def cycle():
-    print("here")
+    print("in cycle")
+    number=sys.argv[1]
     while(True):
-        print("1")
+        print(str(number))
         time.sleep(2)
 
 if __name__ == '__main__':
-    #loadMain(2)
-    cycle()
+    number=sys.argv[1]
+    loadMain(number)
+    #cycle()
     print("ran")

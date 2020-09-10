@@ -2,8 +2,10 @@ import verify
 import mysql1
 import history
 import current
-import time,  pprint
+import time,  pprint, sys
 import psutil
+from subprocess import Popen, PIPE
+import subprocess, os
 """ This is the main controller for the scraper that gets the data every 15 minutes, will run the process on each item on the list file """
 
 
@@ -61,6 +63,17 @@ def confirmActive(index1):
                check1=1
     if(check1==0):
         print("starting: "+str(index1))# if it wasnt already found, then start the process
+        
+        if("nt" is os.name):    
+            CREATE_NEW_PROCESS_GROUP = 0x00000200
+            DETACHED_PROCESS = 0x00000008
+            p = subprocess.Popen(['python3', 'C:\\xampp\\htdocs\\dashboard\\StockWatcher\\runConstant.py ',str(index1)], stdin=PIPE, stdout=PIPE, stderr=PIPE,  creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+        else:
+            p = subprocess.Popen(['python3', '/var/www/html/darwin/StockWatcher/runConstant.py',str(index1)],shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+
+        
+        print ("Started Script up with PID: "+str(p.pid))
+        
     #else:
     #    print("already running: "+str(index1))# it was already running so ignore  and continue
 
@@ -77,6 +90,7 @@ def closeInactive(lines):
                 #print("\n\n\n")
                 number1=p.cmdline()[2] 
                 #print (p.cmdline()[2])
+                print("Found: "+str(number1))
                 if not (checkIt(lines,number1)):
                     print('Killing: '+str(number1))# if not found on the list that should be alive, then kill it
                     p = psutil.Process(p.pid)
@@ -114,7 +128,7 @@ def main():
         print()
         print("Waiting 5 Minutes to check")
         print()
-        time.sleep(300)
+        time.sleep(3)
         countCycle=countCycle+1
 
 
